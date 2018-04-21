@@ -1,6 +1,6 @@
 import React from 'react'
 import * as BooksAPI from './BooksAPI'
-import Book from './Book'
+import BookShelf from './BookShelf'
 import './App.css'
 
 class BooksApp extends React.Component {
@@ -54,33 +54,18 @@ class BooksApp extends React.Component {
             </div>
             <div className="list-books-content">
               <div>
-                <div className="bookshelf">
-                  <h2 className="bookshelf-title">Currently Reading</h2>
-                  <div className="bookshelf-books">
-                    <ol className="books-grid">
-                      {books.filter((book) => ( book.shelf === 'currentlyReading' ))
-                            .map((book)=> ( <Book book={book} key={book.id} /> ))}
-                    </ol>
-                  </div>
-                </div>
-                <div className="bookshelf">
-                  <h2 className="bookshelf-title">Want to Read</h2>
-                  <div className="bookshelf-books">
-                    <ol className="books-grid">
-                      {books.filter((book) => ( book.shelf === 'wantToRead' ))
-                          .map((book)=> ( <Book book={book} key={book.id} /> ))}
-                    </ol>
-                  </div>
-                </div>
-                <div className="bookshelf">
-                  <h2 className="bookshelf-title">Read</h2>
-                  <div className="bookshelf-books">
-                    <ol className="books-grid">
-                      {books.filter((book) => ( book.shelf === 'read' ))
-                          .map((book)=> ( <Book book={book} key={book.id} /> ))}
-                    </ol>
-                  </div>
-                </div>
+                <BookShelf
+                  title={"Currently Reading"}
+                  books={books.filter((book) => ( book.shelf === 'currentlyReading' ))}
+                />
+                <BookShelf
+                  title={"Want to Read"}
+                  books={books.filter((book) => ( book.shelf === 'wantToRead' ))}
+                />
+                <BookShelf
+                  title={"Read"}
+                  books={books.filter((book) => ( book.shelf === 'read' ))}
+                />
               </div>
             </div>
             <div className="open-search">
