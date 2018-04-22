@@ -23,10 +23,8 @@ BookShelf.PropTypes = {
     PropTypes.shape({
       id: PropTypes.string.isRequired,
       title: PropTypes.string.isRequired,
-      authors: PropTypes.array.isRequired,
-      imageLinks: PropTypes.shape({
-        thumbnail: PropTypes.string.isRequired
-      }).isRequired
+      authors: PropTypes.array,
+      imageLinks: PropTypes.object
     }).isRequired
   ),
   changeShelfFunc: PropTypes.func.isRequired
