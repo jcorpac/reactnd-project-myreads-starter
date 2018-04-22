@@ -25,7 +25,9 @@ class BooksApp extends React.Component {
     this.setState(() => {
       this.state.books.forEach((book) => {
         if(book.id === bookId){
-          book.shelf = newShelf;
+          BooksAPI.update(book, newShelf).then(
+            book.shelf = newShelf
+          );
         }
       })
     })
