@@ -12,21 +12,18 @@ class BooksApp extends React.Component {
   }
 
   componentDidMount() {
-    BooksAPI.getAll().then((books) => {
-      this.setState({books})
-    })
+    this.updateBooksFromAPI();
   }
 
-  changeShelf = (book, newShelf) => {
-    this.setState(() => {
-      this.state.books.forEach((shelfBook) => {
-        if(shelfBook.id === book.id){
-          BooksAPI.update(shelfBook, newShelf).then(
-            shelfBook.shelf = newShelf
-          );
-        }
-      })
-    })
+  updateBooksFromAPI() {
+    BooksAPI.getAll().then((books) => {
+      this.setState({books})
+    });
+  }
+
+  addBookToShelf = (book, shelf) => {
+    BooksAPI.update(book, shelf)
+      .then(this.updateBooksFromAPI())
   }
 
   render() {
@@ -36,12 +33,12 @@ class BooksApp extends React.Component {
         <Route exact path='/' render={()=> (
           <MainPage
             books={books}
-            changeShelfFunc={this.changeShelf}
+            changeShelfFunc={this.addBookToShelf}
           />
         )} />
         <Route path='/search' render={()=> (
           <SearchPage
-            changeShelfFunc={this.changeShelf}
+            changeShelfFunc={this.addBookToShelf}
           />
         )} />
       </div>

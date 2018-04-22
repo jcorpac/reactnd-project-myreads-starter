@@ -7,7 +7,7 @@ function mergeAuthors(authorList) {
 }
 
 function handleThumbnail(imageLinks) {
-  if(!imageLinks) {return 'http://via.placeholder.com/128x193.png?text=No+Cover+Available'}
+  if(!imageLinks || !imageLinks.thumbnail) {return 'http://via.placeholder.com/128x193.png?text=No+Cover+Available'}
   else {return imageLinks.thumbnail;}
 }
 
@@ -18,7 +18,7 @@ function Book ( {book, changeShelfFunc} ) {
         <div className="book-top">
           <div className="book-cover" style={{ width: 128, height: 193, backgroundImage: `url(${handleThumbnail(book.imageLinks)})` }}></div>
           <div className="book-shelf-changer">
-            <select value={book.shelf} onChange={(event) => (changeShelfFunc(book, event.target.value))}>
+            <select value={book.shelf ? book.shelf : 'none'} onChange={(event) => {changeShelfFunc(book, event.target.value)}}>
               <option value="none" disabled>Move to...</option>
               <option value="currentlyReading">Currently Reading</option>
               <option value="wantToRead">Want to Read</option>
