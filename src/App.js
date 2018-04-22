@@ -18,7 +18,16 @@ class BooksApp extends React.Component {
   componentDidMount() {
     BooksAPI.getAll().then((books) => {
       this.setState({books})
-      console.log(this.state.books)
+    })
+  }
+
+  changeShelf = (bookId, newShelf) => {
+    this.setState(() => {
+      this.state.books.forEach((book) => {
+        if(book.id === bookId){
+          book.shelf = newShelf;
+        }
+      })
     })
   }
 
@@ -26,7 +35,7 @@ class BooksApp extends React.Component {
     const { showSearchPage, books } = this.state
     return (
       <div className="app">
-        {this.state.showSearchPage ? (
+        {showSearchPage ? (
           <div className="search-books">
             <div className="search-books-bar">
               <a className="close-search" onClick={() => this.setState({ showSearchPage: false })}>Close</a>
@@ -57,14 +66,17 @@ class BooksApp extends React.Component {
                 <BookShelf
                   title={"Currently Reading"}
                   books={books.filter((book) => ( book.shelf === 'currentlyReading' ))}
+                  changeShelfFunc={this.changeShelf}
                 />
                 <BookShelf
                   title={"Want to Read"}
                   books={books.filter((book) => ( book.shelf === 'wantToRead' ))}
+                  changeShelfFunc={this.changeShelf}
                 />
                 <BookShelf
                   title={"Read"}
                   books={books.filter((book) => ( book.shelf === 'read' ))}
+                  changeShelfFunc={this.changeShelf}
                 />
               </div>
             </div>
