@@ -16,11 +16,19 @@ class SearchPage extends Component {
 
   handleSearch = (event) => {
     let searchTerm = event.target.value;
+    let myBooks = this.props.myBooks;
     if(searchTerm === '') {
       this.setState({searchResults: []})
     } else {
       BooksAPI.search(searchTerm).then((results) => {
         if(!results.error) {
+          for(let i = 0; i < results.length; i++) {
+            for(let j = 0; j < myBooks.length; j++){
+              if(myBooks[j].id === results[i].id) {
+                results[i].shelf = myBooks[j].shelf;
+              }
+            }
+          }
           this.setState({searchResults: results})
         } else {
           this.setState({searchResults: []})
