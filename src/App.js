@@ -1,8 +1,9 @@
 import React from 'react'
-import { Route } from 'react-router-dom'
+import { Route, Redirect } from 'react-router-dom'
 import * as BooksAPI from './BooksAPI'
 import MainPage from './MainPage'
 import SearchPage from './SearchPage'
+import NotFound404 from './NotFound404'
 
 import './App.css'
 
@@ -59,6 +60,8 @@ class BooksApp extends React.Component {
             changeShelfFunc={this.addBookToShelf}
           />
         )} />
+        <Route path='/404' component={NotFound404} />
+        <Redirect from='*' to='/404' />
       </div>
     )
   }
